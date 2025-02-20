@@ -58,7 +58,8 @@ class Gameboard {
         if (this.isAttackPossible(x, y)){
             if (this.board[y][x] === 'S'){
                 this.board[y][x] = 'X';
-                this.fleet[this.findShip(x, y)].ship.hit();
+                const indx = this.findShip(x, y);
+                this.fleet[indx].ship.hit();
             }else {
                 this.board[y][x] = '*';
 
@@ -127,13 +128,13 @@ class Gameboard {
     findShip(x, y) {
         for (let indxOfFleet in this.fleet) {
             if (this.fleet[indxOfFleet].isVertical) {
-                if (this.fleet[indxOfFleet].y <= y < this.fleet[indxOfFleet].y + this.fleet[indxOfFleet].ship.length 
+                if (this.fleet[indxOfFleet].y <= y && y  < this.fleet[indxOfFleet].y + this.fleet[indxOfFleet].ship.length 
                     && this.fleet[indxOfFleet].x === x)
-                    return indxOfFleet
+                        return indxOfFleet
             }else {
-                if (this.fleet[indxOfFleet].x <= x < this.fleet[indxOfFleet].x + this.fleet[indxOfFleet].ship.length 
+                if (this.fleet[indxOfFleet].x <= x && x < this.fleet[indxOfFleet].x + this.fleet[indxOfFleet].ship.length  
                     && this.fleet[indxOfFleet].y === y)
-                    return indxOfFleet
+                        return indxOfFleet
             }
         }
     }
