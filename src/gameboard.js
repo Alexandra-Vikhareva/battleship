@@ -59,10 +59,9 @@ class Gameboard {
             if (this.board[y][x] === 'S'){
                 this.board[y][x] = 'X';
                 this.fleet[this.findShip(x, y)].ship.hit();
-                return true
             }else {
                 this.board[y][x] = '*';
-                return false
+
             }
         }
         
@@ -85,18 +84,43 @@ class Gameboard {
     }
 
     isValidLocation(indxOfFleet, x, y) {
-        if (!this.fleet[indxOfFleet].isVertical){
-            if (x + this.fleet[indxOfFleet].ship.length > this.board[0].length) return false
-            for (let iter = x; iter < x + this.fleet[indxOfFleet].ship.length; iter++){
-                if (this.board[y][iter] !== '') return false
-            };
-        } else{
+        if (this.fleet[indxOfFleet].isVertical){
+
             if (y + this.fleet[indxOfFleet].ship.length > this.board.length) return false
+
             for (let iter = y; iter < y + this.fleet[indxOfFleet].ship.length; iter++){
                 if (this.board[iter][x] !== '') return false
-            };   
-        };
+                if (x > 0 && this.board[iter][x - 1] !== '') return false
+                if (x < 9 && this.board[iter][x + 1] !== '') return false
+            };
+            
+            if (y > 0 && this.board[y - 1][x] !== '') return false
+            if (y > 0 && x > 0 && this.board[y - 1][x - 1] !== '') return false
+            if (y > 0 && x < 9 && this.board[y - 1][x + 1] !== '') return false
 
+            if (y + this.fleet[indxOfFleet].ship.length <= 9 && this.board[y + this.fleet[indxOfFleet].ship.length][x] !== '') return false
+            if (y + this.fleet[indxOfFleet].ship.length <= 9 && x > 0 && this.board[y + this.fleet[indxOfFleet].ship.length][x - 1] !== '') return false
+            if (y + this.fleet[indxOfFleet].ship.length <= 9 && x < 9 && this.board[y + this.fleet[indxOfFleet].ship.length][x + 1] !== '') return false
+
+
+        } else{
+            if (x + this.fleet[indxOfFleet].ship.length > this.board[0].length) return false
+            
+            for (let iter = x; iter < x + this.fleet[indxOfFleet].ship.length; iter++){
+                if (this.board[y][iter] !== '') return false
+                if (y > 0 && this.board[y - 1][iter] !== '') return false
+                if (y < 9 && this.board[y + 1][iter] !== '') return false
+            };
+            
+
+            if (x > 0 && this.board[y][x - 1] !== '') return false
+            if (x > 0 && y > 0 && this.board[y - 1][x - 1] !== '') return false
+            if (x > 0 && y < 9 && this.board[y + 1][x - 1] !== '') return false
+
+            if (x + this.fleet[indxOfFleet].ship.length <= 9 && this.board[y][x + this.fleet[indxOfFleet].ship.length] !== '') return false
+            if (x + this.fleet[indxOfFleet].ship.length <= 9 && y > 0 && this.board[y - 1][x + this.fleet[indxOfFleet].ship.length] !== '') return false
+            if (x + this.fleet[indxOfFleet].ship.length <= 9 && y < 9 && this.board[y + 1][x + this.fleet[indxOfFleet].ship.length] !== '') return false
+        };
         return true
     }
 

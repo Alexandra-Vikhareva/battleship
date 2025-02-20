@@ -13,11 +13,11 @@ class Player {
 
     makeMoveRandom() {
         while (true){
-            x = this.#randomInt(10);
-            y = this.#randomInt(10);
+            const x = this.#randomInt(10);
+            const y = this.#randomInt(10);
             if (this.gameboard.isAttackPossible(x, y)){
                 this.gameboard.receiveAttack(x, y)
-                break
+                return y * 10 + x
             }
         }
     }
