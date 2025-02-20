@@ -89,7 +89,7 @@ class Gameboard {
                 if (this.board[y][iter] !== '') return false
             };
         } else{
-            if (y + this.fleet[indxOfFleet].ship.length > this.length) return false
+            if (y + this.fleet[indxOfFleet].ship.length > this.board.length) return false
             for (let iter = y; iter < y + this.fleet[indxOfFleet].ship.length; iter++){
                 if (this.board[iter][x] !== '') return false
             };   
