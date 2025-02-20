@@ -59,8 +59,10 @@ class Gameboard {
             if (this.board[y][x] === 'S'){
                 this.board[y][x] = 'X';
                 this.fleet[this.findShip(x, y)].ship.hit();
+                return true
             }else {
                 this.board[y][x] = '*';
+                return false
             }
         }
         
@@ -100,7 +102,7 @@ class Gameboard {
 
     findShip(x, y) {
         for (let indxOfFleet in this.fleet) {
-            if (this.fleet[indxOfFleet].ship.isVertical) {
+            if (this.fleet[indxOfFleet].isVertical) {
                 if (this.fleet[indxOfFleet].y <= y < this.fleet[indxOfFleet].y + this.fleet[indxOfFleet].ship.length 
                     && this.fleet[indxOfFleet].x === x)
                     return indxOfFleet
